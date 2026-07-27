@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="main__header">
+  <h1 class="main__title">{{ section.title }}</h1>
+  {% if section.description %}
+  <p>{{ section.description }}</p>
+  {% endif %}
+</header>
+
+{% for page in section.pages %}
+<article class="list__item clearfix">
+  <header class="list__header">
+    <h2 class="list__title">
+      <a href="{{ page.permalink }}" rel="bookmark">{{ page.title }}</a>
+    </h2>
+    {% set show_author = false %}
+    {% set meta_class = "list__meta meta" %}
+    {% include "partials/meta.html" %}
+  </header>
+  {% if page.summary %}
+  <div class="list__summary content">{{ page.summary | safe }}</div>
+  {% elif page.description %}
+  <p class="list__summary">{{ page.description }}</p>
+  {% endif %}
+  <footer class="list__footer clearfix">
+    <a class="list__footer-readmore btn" href="{{ page.permalink }}">Read more</a>
+  </footer>
+</article>
+{% endfor %}
+
+{% if paginator %}
+<nav class="pagination" aria-label="Pagination">
+  {% if paginator.previous %}
+  <a class="pagination__item" href="{{ paginator.previous }}">← Prev</a>
+  {% endif %}
+  <span class="pagination__item pagination__item--current">{{ paginator.current_index }}</span>
+  {% if paginator.next %}
+  <a class="pagination__item" href="{{ paginator.next }}">Next →</a>
+  {% endif %}
+</nav>
+{% endif %}
+{% endblock content %}

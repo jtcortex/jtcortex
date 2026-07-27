@@ -1,0 +1,22 @@
+{% if page.date or page.reading_time or page.taxonomies or show_author %}
+<div class="{{ meta_class | default(value='meta') }}">
+  {% if page.date %}
+  <span class="meta__item">
+    <time datetime="{{ page.date }}">{{ page.date | date(format="%Y-%m-%d") }}</time>
+  </span>
+  {% endif %}
+  {% if page.reading_time %}
+  <span class="meta__item">{{ page.reading_time }} min read</span>
+  {% endif %}
+  {% if page.taxonomies.categories %}
+  <span class="meta__item">
+    {% for c in page.taxonomies.categories %}
+    <a href="{{ get_taxonomy_url(kind='categories', name=c) }}">{{ c }}</a>{% if not loop.last %}, {% endif %}
+    {% endfor %}
+  </span>
+  {% endif %}
+  {% if show_author and config.extra.author %}
+  <span class="meta__item">{{ config.extra.author }}</span>
+  {% endif %}
+</div>
+{% endif %}

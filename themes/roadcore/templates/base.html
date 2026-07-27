@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="{{ config.extra.highlight_color | default(value='#a6e3a1') }}">
+  <title>{% block title %}{% if page.title %}{{ page.title }} · {% endif %}{% if section.title %}{{ section.title }} · {% endif %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{% block description %}{% if page.description %}{{ page.description }}{% elif section.description %}{{ section.description }}{% else %}{{ config.description }}{% endif %}{% endblock description %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+  {% if config.generate_feeds %}
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">
+  {% endif %}
+  <script>
+    (function () {
+      document.documentElement.classList.replace('no-js', 'js');
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'latte') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else if (t === 'dark') {
+        localStorage.setItem('theme', 'mocha');
+      }
+    })();
+  </script>
+  {% block head %}{% endblock head %}
+</head>
+<body>
+  <div class="container container--outer">
+    <header class="header">
+      {% include "partials/header.html" %}
+      {% include "partials/menu.html" %}
+    </header>
+    <div class="wrapper flex">
+      <main class="primary" id="main">
+        {% block content %}{% endblock content %}
+      </main>
+      {% include "partials/sidebar.html" %}
+    </div>
+    {% include "partials/footer.html" %}
+  </div>
+  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">Theme</button>
+  <script src="{{ get_url(path='js/main.js') }}"></script>
+  {% block scripts %}{% endblock scripts %}
+</body>
+</html>

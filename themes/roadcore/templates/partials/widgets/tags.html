@@ -1,0 +1,13 @@
+{% if config.taxonomies %}
+  {% set tags = get_taxonomy(kind="tags") %}
+  {% if tags and tags.items %}
+  <div class="widget">
+    <h4 class="widget__title">Tags</h4>
+    {% for term in tags.items %}
+    <a class="widget-taglist__link" href="{{ term.permalink }}" title="{{ term.name }}">
+      {{ term.name }}
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endif %}

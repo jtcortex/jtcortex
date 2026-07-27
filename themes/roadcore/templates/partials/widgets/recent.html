@@ -1,0 +1,9 @@
+{% set posts = get_section(path="posts/_index.md") %}
+{% if posts and posts.pages %}
+<div class="widget">
+  <h4 class="widget__title">Recent Posts</h4>
+  {% for page in posts.pages | slice(end=5) %}
+  <a class="widget__item" href="{{ page.permalink }}">{{ page.title }}</a>
+  {% endfor %}
+</div>
+{% endif %}

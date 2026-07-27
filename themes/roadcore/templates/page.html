@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="post">
+  <header class="post__header">
+    <h1 class="post__title">{{ page.title }}</h1>
+    {% if page.description %}
+    <p class="post__lead">{{ page.description }}</p>
+    {% endif %}
+    <div class="post__meta">
+      {% set show_author = true %}
+      {% include "partials/meta.html" %}
+    </div>
+  </header>
+
+  {% if page.toc and page.extra.toc %}
+  <nav class="toc toc--sticky" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+    <ul>
+      {% for h in page.toc %}
+      <li>
+        <a href="{{ h.permalink | safe }}">{{ h.title }}</a>
+        {% if h.children %}
+        <ul>
+          {% for c in h.children %}
+          <li><a href="{{ c.permalink | safe }}">{{ c.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+
+  <div class="content post__content">
+    {{ page.content | safe }}
+  </div>
+
+  {% if page.taxonomies.tags %}
+  <footer class="post__footer">
+    <div class="tags">
+      <ul class="tags__list">
+        {% for t in page.taxonomies.tags %}
+        <li class="tags__item">
+          <a class="tags__link" href="{{ get_taxonomy_url(kind='tags', name=t) }}">{{ t }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </footer>
+  {% endif %}
+
+  {% if page.lower or page.higher %}
+  <nav class="pager flex">
+    {% if page.lower %}
+    <div class="pager__item pager__item--prev">
+      <a class="pager__link" href="{{ page.lower.permalink }}" rel="prev">
+        <span class="pager__subtitle">← Newer</span>
+        <p class="pager__title">{{ page.lower.title }}</p>
+      </a>
+    </div>
+    {% endif %}
+    {% if page.higher %}
+    <div class="pager__item pager__item--next">
+      <a class="pager__link" href="{{ page.higher.permalink }}" rel="next">
+        <span class="pager__subtitle">Older →</span>
+        <p class="pager__title">{{ page.higher.title }}</p>
+      </a>
+    </div>
+    {% endif %}
+  </nav>
+  {% endif %}
+</article>
+{% endblock content %}

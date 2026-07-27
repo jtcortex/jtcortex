@@ -1,0 +1,13 @@
+{% if config.taxonomies %}
+  {% set cats = get_taxonomy(kind="categories") %}
+  {% if cats and cats.items %}
+  <div class="widget">
+    <h4 class="widget__title">Categories</h4>
+    {% for term in cats.items %}
+    <a class="widget__item" href="{{ term.permalink }}">
+      {{ term.name }} <span class="widget__counter">{{ term.pages | length }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endif %}

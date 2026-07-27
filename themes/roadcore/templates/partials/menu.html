@@ -1,0 +1,18 @@
+<nav class="menu" aria-label="Main">
+  <button class="menu__btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-list">
+    <span class="menu__btn-title">Menu</span>
+  </button>
+  <ul class="menu__list" id="menu-list">
+    {% if config.extra.menu %}
+      {% for item in config.extra.menu %}
+      <li class="menu__item{% if current_path and current_path == item.url %} menu__item--active{% endif %}">
+        <a class="menu__link" href="{{ get_url(path=item.url) }}">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    {% else %}
+      <li class="menu__item">
+        <a class="menu__link" href="{{ get_url(path='') }}">Home</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
