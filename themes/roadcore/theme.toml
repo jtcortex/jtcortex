@@ -1,8 +1,0 @@
-name = "roadcore"
-description = "Roadster-inspired Zola theme"
-license = "MIT"
-homepage = "https://github.com/"
-min_version = "0.19.0"
-
-[extra]
-highlight_color = "#1784eb"

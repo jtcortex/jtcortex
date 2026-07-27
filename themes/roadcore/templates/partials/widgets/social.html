@@ -1,8 +1,0 @@
-{% if config.extra.social %}
-<div class="widget">
-  <h4 class="widget__title">Social</h4>
-  {% for s in config.extra.social %}
-  <a class="widget-social__link" href="{{ s.url }}"{% if not s.url is starting_with("/") %} target="_blank" rel="noopener"{% endif %}>{{ s.name }}</a>
-  {% endfor %}
-</div>
-{% endif %}
